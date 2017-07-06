@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 	styleUrls: ['./product-list.component.css']
 })
 
-export class ProductList {
+export class ProductListComponent {
 
 	// Event send when send button clicked: sendButtonClicked
 	//@Output()
@@ -25,35 +25,49 @@ export class ProductList {
 	//	this.sendButtonClicked.emit("Send button clicked!");
 	//}
 
+	showImages:boolean = false;
+
 	// Array string declaration
-	products:any[]= [
+	products:IProduct[]= [
 						{
-							name: "Product 1", 
+							id: 1, 
+							name: "Alpha", 
 							code: "001", 
 							available: true,
 							price: 11,
 							rating: 5,
-							imageUrl: "http://"
+							imageUrl: "app/images/product1.png"
 						}, 
 						{
-							name: "Product 2",
+							id: 2, 
+							name: "Beta",
 							code : "002",
 							available : true,
 							price : 22,
 							rating : 4,
-							imageUrl: "http://"
+							imageUrl: "app/images/product2.png"
 						},
 						{
-							name: "Product 3",
+							id: 3, 
+							name: "Gamma",
 							code: "003",
 							available: false,
 							price: 33,
 							rating: 3,
-							imageUrl: "http://"
+							imageUrl: "app/images/product3.png"
 						} 
 					];
 
 	title:string = "Product List";
+
+	toogleImages(event:any) {
+		event.preventDefault();
+
+		this.showImages = !this.showImages;
+
+	}
+
+	productFilter:string = "";
 
 }
 

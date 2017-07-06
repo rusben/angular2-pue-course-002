@@ -12,20 +12,29 @@
 	<div class="panel-body">
 
 		<form class="form-inline">
-		  <div class="form-group">
-		    <!-- <label for="product-filter">Filter</label> -->
-		    <input type="text" class="form-control" id="product-filter" placeholder="Product filter">
-		  </div>
+			<div class="form-group">
+		      	<input name="productFilter" type="text" class="form-control" id="product-filter" placeholder="Product filter" [(ngModel)] = "productFilter">
+			</div>
 		  
-		  <button type="submit" class="btn btn-default">Filter</button>
+			<button type="submit" class="btn btn-default">Filter</button>
 		</form>
+
+		<div class="">
+			<h2>Filtered by: {{productFilter}}</h2>
+		</div>
+	
 	</div>
 
 	<div class="table-responsive">
 		<table class="table table-hover" *ngIf="products && products.length">
 			<thead>
 				<tr>
-					<th>&nbsp;</th>
+					<th>
+						<button class="btn btn-primary"
+								(click)="toogleImages($event)">
+								<span>{{showImages ? "Hide" : "Show"}} images</span>
+						</button>
+					</th>
 					<th>Product name</th>
 					<th>Code</th>
 					<th>Available</th>
@@ -35,8 +44,13 @@
 			</thead>
 			<tbody>
 
-				<tr *ngFor="let product of products">
-					<td>&nbsp;</td>
+				<tr *ngFor="let product of products | productListFilter:productFilter">
+					<td>&nbsp;
+						<img *ngIf="showImages" 
+							 src="{{product.imageUrl}}"
+							 alt="product.name"
+							 [title]="product.name" />
+					</td>
 					<td>{{product.name | uppercase}}</td>
 					<td>{{product.code}}</td>
 					<td>{{product.available}}
@@ -44,8 +58,10 @@
 
 						<span *ngIf="!product.available" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 					</td>
-					<td>{{product.price}} €</td>
-					<td>{{product.rating}}</td>
+					<!-- Currency pipe -->
+					<!-- https://angular.io/api/common/CurrencyPipe -->
+					<td>{{product.price | currency:'EUR':true:'1.2-2'}}</td>
+					<td><rating></rating></td>
 				</tr>
 			</tbody>
 		</table>
