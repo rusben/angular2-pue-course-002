@@ -1,11 +1,23 @@
-import { Service, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 import { IProduct } from './product.interface';
 
-
-
 @Injectable()
 export class ProductService {
+
+	constructor(private http:Http) {
+
+	}
+
+	getProductsAsync():Observable<IProduct[]> {
+		return this.http.get("api/products/products.json")
+			.map((response:Response) => {
+				return <IProduct[]>response.json()
+			});
+	}
 
 	getProducts():Array<IProduct> {
 
