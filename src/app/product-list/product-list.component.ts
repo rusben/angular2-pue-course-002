@@ -1,5 +1,5 @@
 // import { Component, Output, EventEmitter } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { IProduct } from './product.interface';
 import { ProductService }  from './product.service';
@@ -10,7 +10,7 @@ import { ProductService }  from './product.service';
 	styleUrls: ['./product-list.component.css']
 })
 
-export class ProductListComponent {
+export class ProductListComponent implements OnInit, OnDestroy {
 
 	// Event send when send button clicked: sendButtonClicked
 	//@Output()
@@ -29,6 +29,12 @@ export class ProductListComponent {
 	//}
 
 	showImages:boolean = false;
+
+	title:string = "Product List";
+
+	productFilter:string = "";
+
+	//productService: ProductService;
 
 	// Array string declaration
 	products:IProduct[]; //= [
@@ -61,18 +67,30 @@ export class ProductListComponent {
 					//	} 
 					//];
 
-	constructor(productService: ProductService) {
-		this.products = productService.getProducts();
+	//constructor(productService: ProductService) {
+	//	this.productService = productService;
+	//}
+
+	// Private variable created with the constructor
+	constructor(private productService: ProductService) {
+		
 	}
 
-	title:string = "Product List";
+	ngOnInit() {
+		console.log("Component created");
+		this.products = this.productService.getProducts();
+	}
+
+	ngOnDestroy() {
+		console.log("Component destroyed");
+	}
 
 	toogleImages(event:any) {
 		event.preventDefault();
 		this.showImages = !this.showImages;
 	}
 
-	productFilter:string = "";
+	
 
 	onRatingClicked(event:string) {
 		this.title = "Product List " + event;
