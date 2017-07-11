@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { IProduct } from './product.interface';
 
@@ -16,7 +17,14 @@ export class ProductService {
 		return this.http.get("api/products/products.json")
 			.map((response:Response) => {
 				return <IProduct[]>response.json()
-			});
+			})
+			// Error control
+			.catch(this.handleError);
+	}
+
+	private handleError(error: Response) {
+		console.log(error);
+		return Observable.throw(error.json().error);
 	}
 
 	getProducts():Array<IProduct> {

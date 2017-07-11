@@ -12,6 +12,8 @@ import { ProductService }  from './product.service';
 
 export class ProductListComponent implements OnInit, OnDestroy {
 
+	// SPA - Single Page Application
+
 	// Event send when send button clicked: sendButtonClicked
 	//@Output()
 	//sendButtonClicked:EventEmitter<string> = new EventEmitter<string>();
@@ -33,6 +35,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	title:string = "Product List";
 
 	productFilter:string = "";
+	errorMessage:string = null;
+
+	subscription:any;
 
 	//productService: ProductService;
 
@@ -80,23 +85,29 @@ export class ProductListComponent implements OnInit, OnDestroy {
 		console.log("Component created");
 		//this.products = this.productService.getProducts();
 
-		// The products came asynchronously from the service, the subscription permits 
+		// The products come asynchronously from the service, the subscription permits 
 		// to change the products list
-		this.productService.getProductsAsync().subscribe((products:IProduct[]) => {
+		this.subscription = this.productService.getProductsAsync()
+		// Success
+		.subscribe((products:IProduct[]) => {
 			this.products = products;
+		}
+		// When an error occurs write the error into errorMessage
+		, (error) => {
+			this.errorMessage = error;
 		});
 	}
 
 	ngOnDestroy() {
 		console.log("Component destroyed");
+		// Remove the subscription
+		this.subscription.unsubscribe();
 	}
 
 	toogleImages(event:any) {
 		event.preventDefault();
 		this.showImages = !this.showImages;
 	}
-
-	
 
 	onRatingClicked(event:string) {
 		this.title = "Product List " + event;

@@ -6,6 +6,7 @@
 	<button (click)="message($event)">Hello!</button>
 </form> -->
 
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 <div class="panel panel-primary">
 	<!-- Default panel contents -->
 	<div class="panel-heading">{{title}}</div>
