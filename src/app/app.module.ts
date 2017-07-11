@@ -5,14 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent }  from './app.component';
 import { ProductListComponent }  from './product-list/product-list.component';
 import { RatingComponent }  from './common/rating/rating.component';
-
 import { ProductListFilterPipe }  from './product-list/product-list-filter.pipe';
-
+import { ProductService }  from './product-list/product.service';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule ],
   declarations: [ AppComponent, ProductListComponent, RatingComponent, ProductListFilterPipe],
-  bootstrap:    [ AppComponent ]
+  bootstrap:    [ AppComponent ],
+  providers:    [ ProductService ]
 })
 
 export class AppModule { }

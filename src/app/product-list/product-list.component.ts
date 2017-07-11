@@ -1,6 +1,8 @@
 // import { Component, Output, EventEmitter } from '@angular/core';
 import { Component } from '@angular/core';
+
 import { IProduct } from './product.interface';
+import { ProductService }  from './product.service';
 
 @Component({
 	selector: 'product-list',
@@ -29,43 +31,45 @@ export class ProductListComponent {
 	showImages:boolean = false;
 
 	// Array string declaration
-	products:IProduct[]= [
-						{
-							id: 1, 
-							name: "Alpha", 
-							code: "001", 
-							available: true,
-							price: 11,
-							rating: 5,
-							imageUrl: "app/images/product1.png"
-						}, 
-						{
-							id: 2, 
-							name: "Beta",
-							code : "002",
-							available : true,
-							price : 22,
-							rating : 4,
-							imageUrl: "app/images/product2.png"
-						},
-						{
-							id: 3, 
-							name: "Gamma",
-							code: "003",
-							available: false,
-							price: 33,
-							rating: 3,
-							imageUrl: "app/images/product3.png"
-						} 
-					];
+	products:IProduct[]; //= [
+					//	{
+					//		id: 1, 
+					//		name: "Alpha", 
+					//		code: "001", 
+					//		available: true,
+					//		price: 11,
+					//		rating: 5,
+					//		imageUrl: "app/images/product1.png"
+					//	}, 
+					//	{
+					//		id: 2, 
+					//		name: "Beta",
+					//		code : "002",
+					//		available : true,
+					//		price : 22,
+					//		rating : 4,
+					//		imageUrl: "app/images/product2.png"
+					//	},
+					//	{
+					//		id: 3, 
+					//		name: "Gamma",
+					//		code: "003",
+					//		available: false,
+					//		price: 33,
+					//		rating: 3,
+					//		imageUrl: "app/images/product3.png"
+					//	} 
+					//];
+
+	constructor(productService: ProductService) {
+		this.products = productService.getProducts();
+	}
 
 	title:string = "Product List";
 
 	toogleImages(event:any) {
 		event.preventDefault();
-
 		this.showImages = !this.showImages;
-
 	}
 
 	productFilter:string = "";
