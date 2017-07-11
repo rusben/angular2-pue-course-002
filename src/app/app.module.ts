@@ -11,7 +11,7 @@ import { ProductListFilterPipe }  from './product-list/product-list-filter.pipe'
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule ],
-  declarations: [ AppComponent, ProductListComponent, RatingComponent ProductListFilterPipe ],
+  declarations: [ AppComponent, ProductListComponent, RatingComponent, ProductListFilterPipe],
   bootstrap:    [ AppComponent ]
 })
 

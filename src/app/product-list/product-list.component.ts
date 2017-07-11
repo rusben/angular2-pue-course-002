@@ -1,5 +1,6 @@
 // import { Component, Output, EventEmitter } from '@angular/core';
 import { Component } from '@angular/core';
+import { IProduct } from './product.interface';
 
 @Component({
 	selector: 'product-list',
@@ -68,6 +69,10 @@ export class ProductListComponent {
 	}
 
 	productFilter:string = "";
+
+	onRatingClicked(event:string) {
+		this.title = "Product List " + event;
+	}
 
 }
 

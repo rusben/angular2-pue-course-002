@@ -61,7 +61,11 @@
 					<!-- Currency pipe -->
 					<!-- https://angular.io/api/common/CurrencyPipe -->
 					<td>{{product.price | currency:'EUR':true:'1.2-2'}}</td>
-					<td><rating></rating></td>
+					<td>
+						<rating rating="{{product.rating}}" 
+								(starClick)="onRatingClicked($event)">
+						</rating>
+					</td>
 				</tr>
 			</tbody>
 		</table>
