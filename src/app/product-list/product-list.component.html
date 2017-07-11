@@ -52,7 +52,11 @@
 							 alt="product.name"
 							 [title]="product.name" />
 					</td>
-					<td>{{product.name | uppercase}}</td>
+					<td>
+						<a [routerLink]="['/product', product.id]">
+							{{product.name | uppercase}}
+						</a>
+					</td>
 					<td>{{product.code}}</td>
 					<td>{{product.available}}
 						<span *ngIf="product.available" class="glyphicon glyphicon-ok" aria-hidden="true"></span>

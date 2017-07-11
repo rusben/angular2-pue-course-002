@@ -77,7 +77,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 	//}
 
 	// Private variable created with the constructor
-	constructor(private productService: ProductService) {
+	constructor(private _productService: ProductService) {
 		
 	}
 
@@ -87,7 +87,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
 		// The products come asynchronously from the service, the subscription permits 
 		// to change the products list
-		this.subscription = this.productService.getProductsAsync()
+		this.subscription = this._productService.getProductsAsync()
 		// Success
 		.subscribe((products:IProduct[]) => {
 			this.products = products;
