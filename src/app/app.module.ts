@@ -10,16 +10,22 @@ import { ProductDetailsComponent }  from './product-list/product-details.compone
 import { RatingComponent }  from './common/rating/rating.component';
 import { ProductListFilterPipe }  from './product-list/product-list-filter.pipe';
 import { ProductService }  from './product-list/product.service';
+import { ProductWarnService }  from './product-list/product-warn.service';
 import { WelcomeComponent }  from './welcome/welcome.component';
 import { MyNavbarComponent }  from './common/my-navbar/my-navbar.component';
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpModule, 
-  				  RouterModule
+  imports: [ BrowserModule, 
+             FormsModule, 
+             HttpModule, 
+             RouterModule
   				  .forRoot(
   				  	[
   				  	  { path: 'products', component: ProductListComponent},
-                { path: 'product/:id', component: ProductDetailsComponent},
+                { path: 'product/:id', 
+                    canAvtivate: [ProductWarnService],
+                    component: ProductDetailsComponent
+                },
   				  	  { path: 'welcome', component: WelcomeComponent},
   				  	  { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   				  	  { path: '**', redirectTo: 'welcome', pathMatch: 'full'}
@@ -27,7 +33,7 @@ import { MyNavbarComponent }  from './common/my-navbar/my-navbar.component';
   				],
   declarations: [ AppComponent, ProductListComponent, RatingComponent, ProductListFilterPipe, WelcomeComponent, MyNavbarComponent, ProductDetailsComponent ],
   bootstrap:    [ AppComponent ],
-  providers:    [ ProductService ]
+  providers:    [ ProductService, ProductWarnService ]
 })
 
 export class AppModule { }
